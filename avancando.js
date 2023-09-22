@@ -98,3 +98,58 @@ const promessa = new Promise((resolve, reject) => {
 promessa.then((mensagem) => {
     console.log(mensagem)
 })
+.catch((erro) => {
+    console.log(erro)
+})
+
+// Biblioteca feitas que são "promise based"
+const promise1 = Promise.resolve(3)
+const promise2 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 2500, "testando")
+})
+
+Promise.all([promise1, promise2]).then((valores) => console.log(valores))
+
+// Async Await
+async function obterValor() {
+    const promessa = new Promise((resolve, reject) => {
+        setTimeout(() => resolve("valor obtido"), 2000)
+    })
+    const valor = await promessa
+
+    console.log(valor)
+}
+
+obterValor()
+
+async function obterValorComErro() {
+    try {
+        const promessa = new Promise((resolve, reject) => {
+        setTimeout(() => reject("valor com erro"), 2000)
+    })
+    const valor = await promessa
+
+    console.log(valor)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+obterValorComErro()
+
+// JSON (JavaScript Object Notation)
+// Padroniza a comunicação - Back End e Front End em uma linguagem só
+const objeto = {nome: "João", idade: 30}
+
+const jsonString = JSON.stringify(objeto)
+
+console.log(jsonString)
+console.log(typeof jsonString)
+
+const json = '{"nome": "João", "idade": 30}'
+
+console.log(json.nome)
+
+const objeto2 = JSON.parse(json)
+
+console.log(objeto2)
