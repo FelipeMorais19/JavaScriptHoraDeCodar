@@ -39,6 +39,45 @@ const inserePonto = (evento) => {
     }
 }
 
+function insereOperador(evento) {
+    if(operacaoAtual !== "") {
+        if(!calculando) {
+            if(operador !== null) {
+                calcula()
+            }
+            valorAnterior = operacaoAtual
+            operacaoAtual = ""
+        }
+        operador = evento.target.textContent
+    }
+}
+
+function calcula() {
+    let resultado = null
+    const operandoAnterior = parseFloat(valorAnterior)
+    const operandoAtual = parseFloat(operacaoAtual)
+
+    switch(operador) {
+        case "+":
+            resultado = operandoAnterior + operacaoAtual
+            break
+        case "-":
+            resultado = operandoAnterior - operacaoAtual
+            break
+        case "*":
+            resultado = operandoAnterior * operacaoAtual
+            break
+        case "/":
+            resultado = operandoAnterior / operacaoAtual
+            break
+    }
+    operacaoAtual = String(resultado)
+    valorAnterior = operacaoAtual
+    calculando = true
+    atualizaDisplay()
+}
+
 // Eventos
 botaoPonto.addEventListener("click", inserePonto)
 botoesNumeros.forEach((botao) => botao.addEventListener("click", insereNumero))
+botoesOperadores.forEach((botao) => botao.addEventListener("click", insereOperador))
